@@ -76,19 +76,27 @@ class Evaluacion(object):
             if (type(NombreArticulo) == str) and (type(CorreoCP) == str) and \
             (type(Nota) == int) and (1 <= Nota) and (Nota <= 5):
 
+                # Elimino espacios antes del primer caracter
+                # Elimino espacion despues del ultimo caracter
+                NombreArticulo = NombreArticulo.strip()
+                CorreoCP = CorreoCP.strip()
                 # chequeo que exista el articulo
-                # y si existe lo conservo en Aux
+                # y si existe lo conservo en Art
                 Esta1 = False
-                Aux = None
+                Art = None
                 for i in self.__articulos:
                     if NombreArticulo == i.get_titulo():
                         Esta1 = True
-                        Aux = i
+                        Art = i
                         break
 
                 # cheque que la persona pertenesca al cp
                 Esta2 = False
                 for i in self.__cp:
+                    # Si el articulo no esta
+                    if not Esta1:
+                        break
+
                     if CorreoCP == i.get_correo():
                         Esta2 = True
                         break
@@ -99,7 +107,7 @@ class Evaluacion(object):
                     self.__evaluaciones.append((NombreArticulo, CorreoCP, \
                     Nota))
                     # agrego la nota en articulo
-                    Aux.Agregar_Nota(Nota)
+                    Art.Agregar_Nota(Nota)
                     return True
 
                 elif (len(self.__evaluaciones) > 0) and Esta1 and Esta2:
@@ -111,10 +119,10 @@ class Evaluacion(object):
                             Esta3 = True
                             break
 
-                    if Esta3 == False:
+                    if not Esta3:
                         self.__evaluaciones.append((NombreArticulo, CorreoCP, \
                         Nota))
-                        Aux.Agregar_Nota(Nota)
+                        Art.Agregar_Nota(Nota)
                         return True
         return False
 
@@ -161,15 +169,17 @@ class Evaluacion(object):
                 if type(numeroArticulo) == int:
 
                     if numeroArticulo > 0 and numeroArticulo <= sys.maxint:
+                        # Reinicio las variables
                         self.__Aceptados = []
                         self.__Empatados = []
                         # genero una lista con los promedios de los articulos
-                        # >=3.00
-                        Alicia = [p.get_promedio() for p in self.\
-                                  get_articulos() if p.get_promedio() >= 3.00 \
-                                  and len(p.get_Nota()) >= 2]
+                        # >=3.00 y que tenga 2 o mas evaluaciones
+                        ListaPromedioArticulo = [p.get_promedio() for p in \
+                                                self.get_articulos() if \
+                                                p.get_promedio() >= 3.00 \
+                                                and len(p.get_Nota()) >= 2]
                         # lista auxiliar para aplicar el count
-                        Beth = Alicia
+                        ListaAuxPromedios = ListaPromedioArticulo
 
                         # Variables donde guardo los indices
                         IndicesAceptados = []
@@ -179,9 +189,9 @@ class Evaluacion(object):
                         UltimoIndiceVisto = 0.0
                         ElementosAgregadosEnAceptados = 0
                         # ordeno la lista de mayor a menor
-                        for i in sorted(Alicia, reverse=True):
+                        for i in sorted(ListaPromedioArticulo, reverse=True):
                             if i != UltimoIndiceVisto:
-                                Cantidad = Beth.count(i)
+                                Cantidad = ListaAuxPromedios.count(i)
                                 if (Cantidad + ElementosAgregadosEnAceptados \
                                     <= numeroArticulo):
                                     if IndicesAceptados.count(i) == 0:
@@ -199,6 +209,7 @@ class Evaluacion(object):
                             get_articulos() if p.get_promedio() == i and \
                             len(p.get_Nota()) >= 2])
 
+                        # genero lista de empatados
                         self.__Empatados.extend([p for p in self.\
                         get_articulos() if p.get_promedio() == \
                         IndicesEmpatados and len(p.get_Nota()) >= 2])
@@ -242,12 +253,12 @@ class Evaluacion(object):
             return True
         return False
 
-    # Valido que los articulos vengan en una lista
-    # y que todo el contenido de dicha lista sea un Articulo
+    # Valido que los CP vengan en una lista
+    # y que todo el contenido de dicha lista sea un CP
     def __Validar_CP(self, cp):
         if type(cp) == list:
             for i in cp:
-                if isinstance(i, CP) != True:
+                if not isinstance(i, CP):
                     return False
             return True
         return False

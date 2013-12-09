@@ -6,12 +6,13 @@ Created on 23/11/2013
 @author: ubuntu
 '''
 
+import sys
+
 from Articulo import Articulo
 from CP import CP
 from Evaluacion import Evaluacion
 from Persona import Persona
 from Topico import Topico
-import sys
 
 
 # variables globales
@@ -184,7 +185,7 @@ def __Opcion_1(Lista_Aux):
         Autores = __Solicitar_Autores()
         Resumen = __Solicitar_Resumen()
 
-        if __Existe_Articulo(Titulo, Lista_Aux) == False:
+        if not __Existe_Articulo(Titulo, Lista_Aux):
             articulo = Articulo(Titulo, topicos, Autores, Resumen, "N")
             Lista_Aux.append(articulo)
             print "El articulo fue agregado de manera exitosa"
@@ -206,8 +207,8 @@ def __Opcion_2(Lista_aux, Control):
         Correo = __Solicitar_Parametro(" Correo")
         topico = __Solicitar_Topicos()
 
-        if __Existe_Persona_CP(Correo, Lista_aux) == False:
-            if (Control == False):
+        if not __Existe_Persona_CP(Correo, Lista_aux):
+            if (not Control):
                 if (__Seleccion_1() == "1"):
                     EsPresidente = "S"
                     Control = True
@@ -228,7 +229,7 @@ def __Opcion_2(Lista_aux, Control):
         if(Temp == "0")  and Control:
             break
 
-        if (Temp == "0")  and Control == False:
+        if (Temp == "0")  and not Control:
             print "No existe presidente del CP."
             print "Debe agregar una persona que sea presidente para",
             print "regresar al menu principal"
