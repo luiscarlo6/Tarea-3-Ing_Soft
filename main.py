@@ -1,6 +1,7 @@
 import Persona
 import Articulo
 import Topico
+import Lugar
 # NO LES DE FLOJERA Y CORRANLO!
 
 # VARIABLES GLOBALES
@@ -15,11 +16,19 @@ articulos = {}
 # { 1 : CP1 , 2 : CP2, 3 : CP3, ...}
 CPs = {}
 
+# Diccionario donde se almacenaran los lugares de la Conferencia 
+# que tendra el siguiente formato
+# { 1 : lugar1 , 2 : lugar2, 3 : lugar3, ...}
+lugares = {}
+
 # Numero de miembros del comite que se han agregado hasta ahora
 num_cp = 0
 
 # Numero de articulos que se han agregado hasta ahora
 num_articulos = 0
+
+# Numero de lugares que se han agregado hasta ahora
+num_lugares = 0
 
 # Variable booleana que indica el cierre del programa
 es_fin = False
@@ -53,6 +62,43 @@ def chequear_topicos(topico_entrada):
         if j.comparar_topico(topico_entrada):
             return True
     return False
+
+def agregarLugar():
+    
+    global lugares, num_lugares
+    lugar = Lugar.Lugar("nombre","ubicacion", 1)
+    
+    while(True):
+        try:
+            print "Ingrese el nombre del lugar: ",
+            nombre = raw_input()
+            lugar.setNombre(nombre)
+            break
+        except ValueError:
+            print ValueError
+            continue
+        
+    while(True):
+        try:
+            print "Ingrese la ubicacion del lugar: "
+            ubicacion = raw_input()
+            lugar.setUbicacion(ubicacion)
+            break
+        except:
+            continue
+    
+    while(True):
+        try:
+            print "Ingrese la capacidad del lugar: "
+            capacidad = input()
+            lugar.setCapacidad(capacidad)
+            break
+        except:
+            print "Valor Erroneo. Intente de nuevo"
+            continue
+    
+    lugares[num_lugares]= lugar 
+    num_lugares = num_lugares + 1  
         
 def agregarArticulo():
     global presidente_elegido, articulos, num_articulos
@@ -408,7 +454,7 @@ if __name__ == "__main__":
   
     # MENU
     comandos = {1 : agregarArticulo, 2 : agregarCP, 3 : agregarPuntuacion, 
-                4 : mostrarAceptados, 5 : mostrarEmpatados, 6 : salir}
+                4 : mostrarAceptados, 5 : mostrarEmpatados, 6 : agregarLugar, 7 : salir}
     while(not es_fin ):
         print "######  CLEI  ######\n"
         print "1.- Agregar Articulo"
@@ -416,7 +462,8 @@ if __name__ == "__main__":
         print "3.- Agregar puntuacion"
         print "4.- Chequear lista de ACEPTADOS"
         print "5.- Chequear lista de EMPATADOS"
-        print "6.- Salir"
+        print "6.- Agregar Lugares"
+        print "7.- Salir"
         print "Ingrese su opcion:"
         try:
             choice = input(">>")
