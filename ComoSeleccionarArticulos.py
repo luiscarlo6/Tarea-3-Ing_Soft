@@ -100,11 +100,7 @@ class ArticuloDesempate(ComoSeleccionarArticulos):
             primeros_n = self.get_lista_articulos()[0 : self.get_num_articulos_aceptar()]
         
             min_promedio = min([ar.calcularPromedio() for ar in primeros_n])
-            print "minpromedio: ", min_promedio
-        
             empatados = [ar for ar in self.get_lista_articulos() if ar.calcularPromedio() == min_promedio]
-            print "cantidad de empatados: ", len(empatados)
-        
             if len(empatados) > 1:
                 lista_empatados = empatados
                 lista_aceptados = [ar for ar in primeros_n if ar.calcularPromedio() > min_promedio]
@@ -114,6 +110,7 @@ class ArticuloDesempate(ComoSeleccionarArticulos):
                         print "%s.- %s " % (i, art)
                         i += 1
                     try:
+                        print "Articulos Restantes: ", (self.get_num_articulos_aceptar()-len(lista_aceptados))
                         opcion = input("Elija el articulo que desee aceptar: ")
                         articulo_elegido = lista_empatados[opcion]
                         lista_aceptados.append(articulo_elegido)
@@ -129,29 +126,27 @@ class ArticuloDesempate(ComoSeleccionarArticulos):
                 lista_aceptados = primeros_n
                 lista_empatados = []
                 
-
-                
-            
         print 'Lista Aceptados'
         for art in lista_aceptados:
             print ".-%s " % (art)
 
             
-                
 if __name__ == "__main__":
     
     cp1 = Persona.CP("a", "b", "usb", "venezuela", ["Redes"], True);
     cp2 = Persona.CP("a", "b", "usb", "venezuela", ["Base"], True);
     cp3 = Persona.CP("a", "b", "usb", "venezuela", ["Computacion"], True);
     
-    a1 = Articulo.Articulo("Titulo1", ["pal1", "pal2"], ["Base", "Redes"], [(cp1, 3) , (cp2, 3), (cp3, 5)])
+    a1 = Articulo.Articulo("Titulo1", ["pal1", "pal2"], ["Base", "Redes"], [(cp1, 5) , (cp2, 3), (cp3, 5)])
     a2 = Articulo.Articulo("Titulo2", ["pal1", "pal2"], ["Base", "Redes"], [(cp1, 4) , (cp2, 4), (cp3, 4)])
     a3 = Articulo.Articulo("Titulo3", ["pal1", "pal2"], ["Base", "Redes", "Computacion"], [(cp1, 3) , (cp2, 3), (cp3, 5)])
+    a4 = Articulo.Articulo("Titulo4", ["pal1", "pal2"], ["Base", "Redes", "Computacion"], [(cp1, 3) , (cp2, 3), (cp3, 5)])
+    a5 = Articulo.Articulo("Titulo5", ["pal1", "pal2"], ["Base", "Redes", "Computacion"], [(cp1, 3) , (cp2, 3), (cp3, 5)])
     
     topicos = Topico.Topico("Base")
     topi1 = Topico.Topico("Redes")
     topi2 = Topico.Topico("Computacion")
 
     
-    estrategia1 = ArticuloDesempate([a1, a2, a3], 2)
+    estrategia1 = ArticuloDesempate([a1, a2, a3,a4,a5], 4)
     estrategia1.seleccionar_articulos()
