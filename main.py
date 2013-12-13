@@ -53,7 +53,50 @@ def chequear_topicos(topico_entrada):
         if j.comparar_topico(topico_entrada):
             return True
     return False
-        
+
+def Seleccion(mensaje):
+    while True:
+        try:
+            opcion = input("Selecione 1 para agregar " + mensaje + \
+                           " o 0 para seguir:\t")
+            return opcion
+            
+        except:
+            print"Seleccion invalida, vuelva a intentarlo"
+ 
+            
+# Funcion que solicita un string por la entrada estandar
+def Solicitar_Parametro(Mensaje):
+    aux = None
+    while True:
+        aux = raw_input("Por favor ingrese el" + Mensaje + ": \t")
+        aux = aux.strip()
+        aux = aux.capitalize()
+        if len(aux) != 0:
+            return aux
+        else:
+            print "Valor invalido, vuelva a intentarlo\n"
+
+
+# funcion que solicita los autores por la entrada estandar
+def Solicitar_Autores():
+    autor = None
+    lista_autores = []
+    while True:
+            Nombre = Solicitar_Parametro(" Nombre del Autor")
+            Apellido = Solicitar_Parametro(" Apellido del Autor")
+            Pais = Solicitar_Parametro(" Pais del Autor")
+            Institucion = Solicitar_Parametro(" Institucion del Autor")
+            autor = Persona.Autor(Nombre, Apellido, Institucion, Pais)
+            lista_autores.append(autor)
+            print "Autor agregado exitosamente"
+            if len(lista_autores) != 0:
+                seleccion = Seleccion(" Autor")
+                if (seleccion == 0):
+                    break
+    return lista_autores
+
+   
 def agregarArticulo():
     global presidente_elegido, articulos, num_articulos
     resumen = []
@@ -62,7 +105,7 @@ def agregarArticulo():
     # Se construye un nuevo articulo y le pasamos unos valores default
     # A medida que el usuario vaya insertando los datos, el articulo
     # se ira conformando.
-    articulo = Articulo.Articulo("titulo", ["pal1"], [], []) 
+    articulo = Articulo.Articulo("titulo", ["pal1"], [], [], [], "Sin Decidir") 
     
     # Se pide por pantalla el titulo
     while(True):
@@ -89,6 +132,8 @@ def agregarArticulo():
         except ValueError:
             print "Caracter no valido. Intente de nuevo."
             continue
+        
+    articulo.set_autores(Solicitar_Autores())    
       
     # Se pide por pantalla los topicos del articulo  
     while(True):
@@ -117,18 +162,17 @@ def agregarArticulo():
                 
             
             topicos.append(topico_recibido)
-            
-            
-            
+               
             
             # Si el usuario ingresa "1" es porque quiere agregar otra palabra resumen
             if raw_input("Desea agregar otro topico?(Presione 1 si es afirmativo): ") != "1":
-                articulo.setTopicos(topicos)
+                articulo.set_topicos(topicos)
                 break
             continue
         except:
             print "Caracter no valido. Intente de nuevo.aaaaaaaaaaaaa"
             continue
+        
    
     # Se agrega el articulo a la lista de articulos y se incrementa el contador     
     articulos[num_articulos]= articulo 
@@ -181,7 +225,7 @@ def agregarCP():
         try:
             topicos.append(raw_input("Ingrese el topico que domina el CP: "))
             if raw_input("Desea agregar otro topico?(Presione 1 si es afirmativo): ") != "1":
-                miembroCP.setTopicos(topicos)
+                miembroCP.set_topicos(topicos)
                 break
             continue
         except:
@@ -296,7 +340,7 @@ def agregarPuntuacion():
         
         # Aqui se verifica si algun topico que domina el arbitro elegido coincide
         # con algun topico del articulo a evaluar
-        if len([x for x in articulo_elegido.getTopicos() if x in CP_elegido.getTopicos()]) != 0:
+        if len([x for x in articulo_elegido.get_topicos() if x in CP_elegido.get_topicos()]) != 0:
             while True:
                 try:
                     # Se pide la nota y se agrega al articulo
