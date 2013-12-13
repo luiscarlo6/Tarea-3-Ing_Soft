@@ -13,10 +13,10 @@ class Articulo(object):
     # y la segunda posicion corresponde a la nota que dio dicho arbitro
     __puntuaciones = []
     
-    def __init__(self, tit, res, topicos, autores, pun, status):
+    def __init__(self, tit, res, topicos, autores, pun):
         if (isinstance(tit, str) and isinstance(res, list) and 
             isinstance(topicos, list) and isinstance(pun, list)
-            and isinstance(autores, list) and isinstance(status, str)):
+            and isinstance(autores, list)):
         
             for r in res:
                 if not isinstance(r, str):
@@ -37,13 +37,12 @@ class Articulo(object):
                     raise TypeError
                 
             
-            if (len(tit) > 0 and len(res) > 0 and len(status) > 0):
+            if len(tit) > 0 and len(res) > 0:
                 self.__titulo = tit
                 self.__resumen = res
                 self.__topicos = topicos
                 self.__autores = autores
                 self.__puntuaciones = pun
-                self.__status = status
             else:
                 raise ValueError
         else:
