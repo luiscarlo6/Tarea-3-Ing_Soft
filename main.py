@@ -127,7 +127,7 @@ def agregarArticulo():
     # Se construye un nuevo articulo y le pasamos unos valores default
     # A medida que el usuario vaya insertando los datos, el articulo
     # se ira conformando.
-    articulo = Articulo.Articulo("titulo", ["pal1"], [], [], [], "Sin Decidir") 
+    articulo = Articulo.Articulo("titulo", ["pal1"], [], [], []) 
     
     # Se pide por pantalla el titulo
     while(True):
