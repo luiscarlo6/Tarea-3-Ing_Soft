@@ -34,6 +34,10 @@ lista_aceptados = []
 # Lista para los topicos
 lista_topicos = []
 
+# Lista global de paises de donde pertenecen
+# los articulos
+lista_paises = []
+
 # Lista de articulos empatados, para ser 
 # elegidos como aceptados por el presidente
 # del comite(funcionalidad aun no implementada) 
@@ -76,10 +80,26 @@ def Solicitar_Parametro(Mensaje):
             return aux
         else:
             print "Valor invalido, vuelva a intentarlo\n"
+            
+def calcular_num_participaciones_pais(pais):
+    global articulos
+    num_participaciones = 0
+    for art in articulos.values():
+        lista_paises_del_articulo = [autor.getPais() for autor in art.get_autores()]
+        if pais in lista_paises_del_articulo:
+            num_participaciones += 1
+    return num_participaciones
 
+def ordenar_paises_por_participaciones():
+    global lista_paises
+    lista_paises_ordenada = sorted(lista_paises,
+                                    key = lambda x : calcular_num_participaciones_pais(x))
+    return lista_paises_ordenada
+    
 
 # funcion que solicita los autores por la entrada estandar
 def Solicitar_Autores():
+    global lista_paises
     autor = None
     lista_autores = []
     while True:
@@ -89,6 +109,8 @@ def Solicitar_Autores():
             Institucion = Solicitar_Parametro(" Institucion del Autor")
             autor = Persona.Autor(Nombre, Apellido, Institucion, Pais)
             lista_autores.append(autor)
+            lista_paises.append(Pais)
+            lista_paises = list(set(lista_paises))
             print "Autor agregado exitosamente"
             if len(lista_autores) != 0:
                 seleccion = Seleccion(" Autor")
@@ -470,5 +492,8 @@ if __name__ == "__main__":
             continue
         # Se ejecuta el comando elegido
         comandos[choice]() 
+    print "Paises Ordenados"
+    for pai in ordenar_paises_por_participaciones():
+        print "Pais: %s Num Participaciones: %s" % (pai, calcular_num_participaciones_pais(pai))
         
         
