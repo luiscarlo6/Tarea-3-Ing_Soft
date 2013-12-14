@@ -1,4 +1,6 @@
+
 import Persona
+
 
 class Articulo(object):
     
@@ -30,7 +32,7 @@ class Articulo(object):
                     raise ValueError
                 
             
-            if((len(tit) > 0) and (len(res) > 0) ):
+            if((len(tit) > 0) and (len(res) > 0)):
                 self.__titulo = tit
                 self.__resumen = res
                 self.__topicos = topicos
@@ -63,7 +65,7 @@ class Articulo(object):
 
 
     def setResumen(self, value):
-        if len(value) not in range(1,6):
+        if len(value) not in range(1, 6):
             raise ValueError
         self.__resumen = value
         
@@ -79,7 +81,7 @@ class Articulo(object):
             raise ValueError
         if not isinstance(value[1], int):
             raise ValueError
-        if value[1] not in range(1,6):
+        if value[1] not in range(1, 6):
             raise ValueError
         self.__puntuaciones.append(value)
         
@@ -98,4 +100,3 @@ class Articulo(object):
         return self.__titulo
     
     
-    print "Hola"

@@ -1,12 +1,14 @@
 import unittest
-import Persona
+
 import Articulo
+import Persona
+
 
 class PersonaTestCase(unittest.TestCase):
     
     
     def setUp(self):
-        self.persona = Persona.Persona("nombre","apellido", "institucion", "pais", ["Base de Datos", "Robotica"])
+        self.persona = Persona.Persona("nombre", "apellido", "institucion", "pais", ["Base de Datos", "Robotica"])
         
         
     def tearDown(self):
@@ -29,7 +31,7 @@ class PersonaTestCase(unittest.TestCase):
         except TypeError:
             pass
         else:
-            self.assertFalse(True,  'setNombre(): Se esperaba un TypeError')
+            self.assertFalse(True, 'setNombre(): Se esperaba un TypeError')
             
     def testSetNombre2(self):
         try:
@@ -37,7 +39,7 @@ class PersonaTestCase(unittest.TestCase):
         except ValueError:
             pass
         else:
-            self.assertFalse(True,  'setNombre(): Se esperaba un ValueError')
+            self.assertFalse(True, 'setNombre(): Se esperaba un ValueError')
             
             
     def testGetApellido(self):
@@ -48,7 +50,7 @@ class PersonaTestCase(unittest.TestCase):
               
     def testSetApellido(self):
         self.persona.setApellido("Franklin")
-        self.assertTrue(self.persona.getApellido() == "Franklin", 
+        self.assertTrue(self.persona.getApellido() == "Franklin",
                 "setApellido() no establece el valor de apellido apropiadamente")
         
         
@@ -58,7 +60,7 @@ class PersonaTestCase(unittest.TestCase):
         except TypeError:
             pass
         else:
-            self.assertFalse(True,'setApellido(): Se esperaba un TypeError')
+            self.assertFalse(True, 'setApellido(): Se esperaba un TypeError')
             
     def testSetApellido2(self):
         try:
@@ -66,7 +68,7 @@ class PersonaTestCase(unittest.TestCase):
         except ValueError:
             pass
         else:
-            self.assertFalse(True,'setApellido(): Se esperaba un ValueError')
+            self.assertFalse(True, 'setApellido(): Se esperaba un ValueError')
             
             
     def testGetInstitucion(self):
@@ -85,7 +87,7 @@ class PersonaTestCase(unittest.TestCase):
         except TypeError:
             pass
         else:
-            self.assertFalse(True,  'setInstitucion(): Se esperaba un TypeError')
+            self.assertFalse(True, 'setInstitucion(): Se esperaba un TypeError')
             
     def testSetInstitucion2(self):
         try:
@@ -93,7 +95,7 @@ class PersonaTestCase(unittest.TestCase):
         except ValueError:
             pass
         else:
-            self.assertFalse(True,  'setInstitucion(): Se esperaba un ValueError')
+            self.assertFalse(True, 'setInstitucion(): Se esperaba un ValueError')
             
 
     def testGetPais(self):
@@ -103,17 +105,17 @@ class PersonaTestCase(unittest.TestCase):
         
     def testSetPais(self):
         self.persona.setPais("Mexico")
-        self.assertTrue(self.persona.getPais() == "Mexico", 
+        self.assertTrue(self.persona.getPais() == "Mexico",
                 "setPais() no establece el valor del pais apropiadamente")
         
         
     def testSetPais1(self):
         try:
-            self.persona.setPais([2,3])
+            self.persona.setPais([2, 3])
         except TypeError:
             pass
         else:
-            self.assertFalse(True,'setPais(): Se esperaba un TypeError')
+            self.assertFalse(True, 'setPais(): Se esperaba un TypeError')
             
     def testSetPais2(self):
         try:
@@ -121,7 +123,7 @@ class PersonaTestCase(unittest.TestCase):
         except ValueError:
             pass
         else:
-            self.assertFalse(True,'setPais(): Se esperaba un ValueError')
+            self.assertFalse(True, 'setPais(): Se esperaba un ValueError')
             
 class ArticuloTestCase(unittest.TestCase):
     
@@ -140,16 +142,16 @@ class ArticuloTestCase(unittest.TestCase):
         
     def testSetTitulo(self):
         self.articulo.setTitulo("Criptografia")
-        self.assertTrue(self.articulo.getTitulo() == "Criptografia", 
+        self.assertTrue(self.articulo.getTitulo() == "Criptografia",
                 "setTitulo() no establece el valor del pais apropiadamente")
         
     def testSetTitulo1(self):
         try:
-            self.articulo.setTitulo([2,3])
+            self.articulo.setTitulo([2, 3])
         except TypeError:
             pass
         else:
-            self.assertFalse(True,'setTitulo(): Se esperaba un TypeError')
+            self.assertFalse(True, 'setTitulo(): Se esperaba un TypeError')
             
     def testSetResumen0(self):
         self.articulo.setResumen(["pal", "perro", "hola"])
@@ -265,7 +267,7 @@ class ArticuloTestCase(unittest.TestCase):
     def testEsAceptable(self):
         a3 = Persona.CP("a", "b", "usb", "venezuela", ["bases"], True)
         a4 = Persona.CP("ab", "ba", "usb", "venezuela", ["bases"], False)
-        self.articulo.setPuntuaciones([(a3,3), (a4,3)])
+        self.articulo.setPuntuaciones([(a3, 3), (a4, 3)])
         self.assertTrue(self.articulo.es_aceptable(), "es_aceptable() no funciona correctamente")
             
             
@@ -291,7 +293,7 @@ class ArticuloTestCase(unittest.TestCase):
             
 class CPTestCase(unittest.TestCase):
     def setUp(self):
-        self.CP = Persona.CP("Fran", "Padilla", "Institucion", "Venezuela",["Base de Datos"], False)
+        self.CP = Persona.CP("Fran", "Padilla", "Institucion", "Venezuela", ["Base de Datos"], False)
         
     def testGetEsPresidente(self):
         self.assertFalse(self.CP.getEsPresidente(), "getEsPresidente(): no funciona correctamente")
