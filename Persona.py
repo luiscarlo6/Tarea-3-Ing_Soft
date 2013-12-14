@@ -1,3 +1,5 @@
+from django.db import models
+
 class Persona(object):
     __nombre = None
     __apellido = None
@@ -106,11 +108,5 @@ class CP(Persona):
         else:
             self.es_presidente = value
             
-class Asistente(Persona):
-    __tipo_inscripcion = None
-    
-    def __init__(self, nom, ape, ins, pai, topicos):
-        super(Asistente, self).__init__(nom, ape, ins, pai, topicos)
-    
-    
-            
+class Participante(models.Model):
+    nombre = models.CharField(max_length=100)
