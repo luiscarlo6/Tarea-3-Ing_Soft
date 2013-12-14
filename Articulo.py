@@ -98,4 +98,4 @@ class Articulo(object):
         return self.__titulo
     
     
-        
+    print "Hola"
