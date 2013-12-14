@@ -79,6 +79,82 @@ class ArticuloTopico(ComoSeleccionarArticulos):
         print "Ya pase"
         for i in lista_seleccionados:
             print i
+            
+class ArticuloPaisesDesempate(ComoSeleccionarArticulos):
+    
+    def __init__(self, lista_articulo, num_art_aceptar, lista_paises, p):
+        super(ArticuloPaisesDesempate, self).__init__(lista_articulo, num_art_aceptar)
+        if not isinstance(p, int):
+            raise TypeError
+        if p < 0:
+            raise ValueError
+        if not isinstance(lista_paises, list):
+            raise TypeError
+        for pais in lista_paises:
+            if not isinstance(pais, str):
+                raise TypeError
+        self.__p = p
+        self.__lista_paises = lista_paises
+        
+    def seleccionar_articulos(self):
+        lista_seleccionados = []
+        # Seleccionamos los p mejores articulos de cada pais 
+        for pais in self.__lista_paises:
+            lista_articulo_del_pais = [art for art in self.get_lista_articulos() if art.pertenece_a_pais(pais)]  
+            lista_articulo_del_pais = sorted(lista_articulo_del_pais,
+                                              key = lambda x: x.calcularPromedio() )
+            for i in range(0, self.__p):
+                articulo_agregar = lista_articulo_del_pais.pop()
+                lista_seleccionados.append(articulo_agregar)
+                self.get_lista_articulos().remove(articulo_agregar)
+                
+        # Eliminamos articulos repetidos
+        list(set(lista_seleccionados))
+        
+        
+        if len(lista_seleccionados) >= self.get_num_articulos_aceptar():
+            lista_seleccionados = lista_seleccionados[0 : self.get_num_articulos_aceptar()]
+        # Si quedan aun articulos por elegir, los elegimos por mejor promedio    
+        else:
+            num_articulos_por_elegir = self.get_num_articulos_aceptar() - len(lista_seleccionados) 
+            
+            
+            # Si el numero de articulos que quedan es menor al numero de articulos por elegir
+            # entonces acetamos a todos los articulos que quedan
+            if len(self.get_lista_articulos()) <= num_articulos_por_elegir:
+                lista_seleccionados += self.get_lista_articulos()
+        
+            else:
+                self.set_lista_articulos(sorted(self.get_lista_articulos(),
+                                                key=lambda x: x.calcularPromedio(),
+                                                reverse=True))
+        
+                primeros_n = self.get_lista_articulos()[0 : num_articulos_por_elegir]
+               
+                min_promedio = min([ar.calcularPromedio() for ar in primeros_n])
+                lista_restantes_aceptados = [ar for ar in primeros_n if ar.calcularPromedio() > min_promedio]
+                lista_restantes_empatados = [ar for ar in self.get_lista_articulos() if ar.calcularPromedio() == min_promedio]
+                if len(lista_restantes_empatados) > 1:
+                    
+                    lista_seleccionados += lista_restantes_aceptados
+                    num_articulos_por_elegir -= len(lista_restantes_aceptados)
+
+                    for pais in self.__lista_paises:
+                        for art in lista_restantes_empatados:
+                            if art.pertenece_a_pais(pais):
+                                lista_seleccionados.append(art)
+                                num_articulos_por_elegir -= 1
+                                if num_articulos_por_elegir == 0:
+                                    break
+                        if num_articulos_por_elegir == 0:
+                            break
+                    
+                else:
+                    lista_seleccionados += primeros_n 
+        
+        print 'Lista Aceptados'
+        for art in lista_seleccionados:
+            print ".-%s " % (art)
                     
 # la lista_articulo que se le pasa es una lista de articulos aceptable (prom >= 3)
 # por lo que se suponen que todos los articulos que estan aqui son articulos que forman
@@ -121,9 +197,7 @@ class ArticuloDesempate(ComoSeleccionarArticulos):
                             break
                     except:
                         print "Opcion no valida"
-                        continue
-                
-            
+                        continue         
             else:
                 lista_aceptados = primeros_n
                 lista_empatados = []
@@ -314,18 +388,16 @@ if __name__ == "__main__":
 
     
     
-    a1 = Articulo.Articulo("Titulo1", ["pal1", "pal2"], ["Base", "Redes"], [autor1,autor2],[(cp1, 3) , (cp2, 3), (cp3, 4)])
+    a1 = Articulo.Articulo("Titulo1", ["pal1", "pal2"], ["Base", "Redes"], [autor1,autor2],[(cp1, 3) , (cp2, 3), (cp3, 3)])
     a2 = Articulo.Articulo("Titulo2", ["pal1", "pal2"], ["Base", "Redes"], [autor1],[(cp1, 4) , (cp2, 4), (cp3, 4)])
-    a3 = Articulo.Articulo("Titulo3", ["pal1", "pal2"], ["Base", "Redes", "Computacion"], [autor1,autor3], [(cp1, 4) , (cp2, 3), (cp3, 5)])
+    a3 = Articulo.Articulo("Titulo3", ["pal1", "pal2"], ["Base", "Redes", "Computacion"], [autor1,autor3], [(cp1, 4) , (cp2, 3), (cp3, 3)])
     a4 = Articulo.Articulo("Titulo4", ["pal1", "pal2"], ["Base", "Redes", "Computacion"], [autor1,autor2],[(cp1, 4) , (cp2, 4), (cp3, 5)])
-    a5 = Articulo.Articulo("Titulo5", ["pal1", "pal2"], ["Base", "Redes", "Computacion"], [autor3,autor2],[(cp1, 3) , (cp2, 3), (cp3, 5)])
+    a5 = Articulo.Articulo("Titulo5", ["pal1", "pal2"], ["Base", "Redes", "Computacion"], [autor3,autor2],[(cp1, 3) , (cp2, 3), (cp3, 3)])
     
     topicos = Topico.Topico("Base")
     topi1 = Topico.Topico("Redes")
     topi2 = Topico.Topico("Computacion")
 
-# hasta aki
-
-    estrategia3 = ArticuloPorcentaje([a1, a2, a3,a4,a5], 10,  ["Camerun","Venezuela"]);
-    print "Estrategia #Porcentaje"
+    estrategia3 = ArticuloPaisesDesempate([a1, a2, a3,a4,a5], 4,  ["Camerun","Venezuela"], 1);
+    print "Estrategia #EmpatadosPaises"
     estrategia3.seleccionar_articulos()

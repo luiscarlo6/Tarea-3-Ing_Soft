@@ -115,6 +115,13 @@ class Articulo(object):
     def es_aceptable(self):
         return len(self.getPuntuaciones()) > 1 and self.calcularPromedio() >= 3
     
+    def pertenece_a_pais(self, pais):
+        pais.capitalize()
+        for autor in self.__autores:
+            if autor.getPais() == pais:
+                return True
+        return False
+    
     def __str__(self):
         return self.__titulo
     
