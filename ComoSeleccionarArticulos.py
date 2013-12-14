@@ -227,6 +227,79 @@ class ArticuloCortes(ComoSeleccionarArticulos):
             for i in lista_promedios_aceptables:
                 print i, i.calcularPromedio()
 
+
+class ArticuloPorcentaje(ComoSeleccionarArticulos):
+    
+    def __init__(self, lista_articulo, num_art_aceptar, lista_paises):
+        super(ArticuloPorcentaje, self).__init__(lista_articulo, num_art_aceptar)
+        if not isinstance(lista_paises, list):
+            raise TypeError
+        for pais in lista_paises:
+            if not isinstance(pais, str):
+                raise TypeError
+        self.__lista_paises = lista_paises
+    
+    
+    def seleccionar_articulos(self):
+        num_articulos = len(self.get_lista_articulos())
+        ochenta_por_ciento = self.get_num_articulos_aceptar() * 80 / 100
+        veinte_por_ciento = self.get_num_articulos_aceptar() - ochenta_por_ciento
+        self.set_lista_articulos(sorted(self.get_lista_articulos(),
+                                key=lambda x: x.calcularPromedio()))   
+        
+        
+        matriz_paises = [] # matriz que, por cada pais, guarda los articulos enviados
+        for pais in self.__lista_paises:
+            lista_articulos_por_pais = []
+            for art in self.get_lista_articulos():
+                for autor in art.get_autores():
+                    if pais == autor.getPais():
+                        lista_articulos_por_pais.append(art)
+                        break
+            matriz_paises.append((pais, lista_articulos_por_pais))
+           
+        # Ahora calculamos el 80 por ciento de los articulos    
+        lista_seleccionados = []
+        for i in matriz_paises:
+            j = 0
+            while j < len(i[1]): 
+                aux = i[1][j]
+                if aux in lista_seleccionados:
+                    i[1].remove(aux)
+                else:   
+                    lista_seleccionados.append(aux)
+                    self.get_lista_articulos().remove(aux)
+                    tam_lista_seleccionados = len(lista_seleccionados)
+                    # Chequeo si ya seleccione el 80 por ciento o se me acabaron los articulos
+                    if (tam_lista_seleccionados == ochenta_por_ciento or 
+                        tam_lista_seleccionados == num_articulos):
+                        break
+                    
+                    i[1].remove(aux)
+                    
+            if (tam_lista_seleccionados == ochenta_por_ciento or 
+                tam_lista_seleccionados == num_articulos):
+                break
+        
+        print "80p:%s 20p:%s numeroselecc:%s num_art:%s" % (ochenta_por_ciento, veinte_por_ciento, tam_lista_seleccionados, num_articulos)
+        if tam_lista_seleccionados < num_articulos:
+        # Ahora seleccionamos el 20 por ciento restante 
+        # con respecto al mejor promedio
+            j = tam_lista_seleccionados
+            for i in range(0, veinte_por_ciento):
+                if j == num_articulos:
+                    break
+                lista_seleccionados.append(self.get_lista_articulos().pop())
+                j += 1
+        
+                
+        print "seleccionados finales: "
+        for i in lista_seleccionados:
+            print i, i.calcularPromedio()
+
+            
+        
+        
             
         
 if __name__ == "__main__":
@@ -251,12 +324,8 @@ if __name__ == "__main__":
     topi1 = Topico.Topico("Redes")
     topi2 = Topico.Topico("Computacion")
 
-    
-    estrategia1 = ArticuloDesempate([a1, a2, a3,a4,a5], 5)
-    print "Estrategia #Desempate"
-    estrategia1.seleccionar_articulos()
 # hasta aki
 
-    estrategia3 = ArticuloCortes([a1, a2, a3,a4,a5], 4, 4.1, 4.0, ["Camerun","Venezuela"]);
-    print "Estrategia #Cortes"
+    estrategia3 = ArticuloPorcentaje([a1, a2, a3,a4,a5], 10,  ["Camerun","Venezuela"]);
+    print "Estrategia #Porcentaje"
     estrategia3.seleccionar_articulos()
