@@ -36,7 +36,7 @@ class AsistenciaExclusivaCharlas(TipoDeInscripcion):
     __eventos_asistir = None
     
     def __init__(self, precio, beneficios, eventos):
-        if isinstance(precio, int) and isinstance(beneficios, list) and \
+        if isinstance(precio, float) and isinstance(beneficios, list) and \
         isinstance(eventos, list):
 
             for i in beneficios:
@@ -67,7 +67,7 @@ class AsistenciaExclusivaCharlas(TipoDeInscripcion):
 
 
     def set_precio(self, value):
-        if isinstance(value, int):
+        if isinstance(value, float):
             self.__precio = value
         else:
             raise TypeError
@@ -107,7 +107,7 @@ class AsistenciaExclusivaTalleres(TipoDeInscripcion):
     __eventos_asistir = None
     
     def __init__(self, precio, beneficios, eventos):
-        if isinstance(precio, int) and isinstance(beneficios, list) and \
+        if isinstance(precio, float) and isinstance(beneficios, list) and \
         isinstance(eventos, list):
 
             for i in beneficios:
@@ -138,7 +138,7 @@ class AsistenciaExclusivaTalleres(TipoDeInscripcion):
 
 
     def set_precio(self, value):
-        if isinstance(value, int):
+        if isinstance(value, float):
             self.__precio = value
         else:
             raise TypeError
@@ -180,7 +180,7 @@ class AsistenciaCharlasYTalleres(TipoDeInscripcion):
     __eventos_asistir = None
     
     def __init__(self, precio, beneficios, eventos):
-        if isinstance(precio, int) and isinstance(beneficios, list) and \
+        if isinstance(precio, float) and isinstance(beneficios, list) and \
         isinstance(eventos, list):
 
             for i in beneficios:
@@ -211,7 +211,7 @@ class AsistenciaCharlasYTalleres(TipoDeInscripcion):
 
 
     def set_precio(self, value):
-        if isinstance(value, int):
+        if isinstance(value, float):
             self.__precio = value
         else:
             raise TypeError
