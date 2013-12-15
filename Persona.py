@@ -4,10 +4,9 @@ class Persona(object):
     __institucion = None
     __topicos = None
     __pais = None
-    
+
     def __init__(self, nombre, apellido, institucion, pais, topicos):
-        
-        
+
         if (isinstance(nombre, str) and isinstance(apellido, str) and 
             isinstance(institucion, str) and isinstance(pais, str) and 
             isinstance(topicos, list)):
