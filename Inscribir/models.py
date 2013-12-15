@@ -3,7 +3,6 @@ Created on 14/12/2013
 
 @author: luiscarlo
 '''
-from datetime import date
 
 from django.db import models
 
@@ -14,17 +13,21 @@ class Inscripcion(models.Model):
     fecha = models.DateTimeField(default=0)
     pago = models.IntegerField(default=0)
     persona_a_inscribir = models.CharField(max_length = 100)
+    
+    def __unicode__(self):
+        return self.persona_a_inscribir
 
-    def __init__(self, tarifa, fecha, pago):
-        if (isinstance(tarifa, long) and 
-            isinstance(fecha, date) and 
-            isinstance(pago, long)):
-              
-            self.__tarifa = tarifa
-            self.__fecha = fecha
-            self.__pago = pago
-        else:
-            raise ValueError
+
+#     def __init__(self, tarifa, fecha, pago):
+#         if (isinstance(tarifa, long) and 
+#             isinstance(fecha, date) and 
+#             isinstance(pago, long)):
+#               
+#             self.__tarifa = tarifa
+#             self.__fecha = fecha
+#             self.__pago = pago
+#         else:
+#             raise ValueError
           
 #     def get_tarifa(self):
 #         return self.__tarifa
