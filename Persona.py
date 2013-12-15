@@ -181,3 +181,4 @@ if __name__ == "__main__":
     Par = Participante("Jose", "Prado", "USB", "VEN", ["Bases"], "josejulianprado@gmail.com",\
                        "1220", "www.usb.ve", "+584162068514")
     print Par
+    
