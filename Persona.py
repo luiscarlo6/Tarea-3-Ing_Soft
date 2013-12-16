@@ -4,16 +4,15 @@ class Persona(object):
     __institucion = None
     __topicos = None
     __pais = None
-    
+
     def __init__(self, nombre, apellido, institucion, pais, topicos):
-        
-        
+
         if (isinstance(nombre, str) and isinstance(apellido, str) and 
             isinstance(institucion, str) and isinstance(pais, str) and 
             isinstance(topicos, list)):
         
             if((len(nombre) > 0) and (len(apellido) > 0) and
-               (len(institucion) > 0) and (len(pais) > 0) ):
+               (len(institucion) > 0) and (len(pais) > 0)):
             
                 self.__nombre = nombre
                 self.__apellido = apellido
@@ -106,3 +105,80 @@ class CP(Persona):
         else:
             self.es_presidente = value
             
+            
+            
+class Participante(Persona):
+    __correo = None
+    __direcionPostal = None
+    __url = None
+    __numeroTelefono = None
+    
+    def __init__(self,nom, ape, ins, pai, topicos, cor, dirpos, url, tel):
+        super(Participante, self).__init__(nom, ape, ins, pai, topicos)
+        if not isinstance(cor, str) or not isinstance(dirpos, str) or \
+            not isinstance(url, str) or not isinstance(tel, str):
+            raise TypeError
+        
+        else:
+            self.__correo = cor
+            self.__direcionPostal = dirpos
+            self.__url = url
+            self.__numeroTelefono = tel
+
+    def get_correo(self):
+        return self.__correo
+
+
+    def get_direcion_postal(self):
+        return self.__direcionPostal
+
+
+    def get_url(self):
+        return self.__url
+
+
+    def get_numero_telefono(self):
+        return self.__numeroTelefono
+
+
+    def set_correo(self, value):
+        if not isinstance(value, str):
+            raise TypeError
+        else:
+            self.__correo = value
+
+
+    def set_direcion_postal(self, value):
+        if not isinstance(value, str):
+            raise TypeError
+        else:
+            self.__direcionPostal = value
+
+
+    def set_url(self, value):
+        if not isinstance(value, str):
+            raise TypeError
+        else:
+            self.__url = value
+
+
+    def set_numero_telefono(self, value):
+        if not isinstance(value, str):
+            raise TypeError
+        else:
+            self.__numeroTelefono = value
+
+    def __str__(self):
+        cadena = Persona.__str__(self)
+        cadena += " %s %s %s %s" % (self.get_correo(), self.get_direcion_postal(), self.get_url(), self.get_numero_telefono())
+        return cadena
+
+if __name__ == "__main__":
+    #from Topico import Topico
+    #from Persona import Participante
+    
+    #topico = Topico("Bases")
+    Par = Participante("Jose", "Prado", "USB", "VEN", ["Bases"], "josejulianprado@gmail.com",\
+                       "1220", "www.usb.ve", "+584162068514")
+    print Par
+    

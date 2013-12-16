@@ -1,10 +1,10 @@
-import Persona
 import Articulo
+import Persona
 import Topico
+
+
 # NO LES DE FLOJERA Y CORRANLO!
-
 # VARIABLES GLOBALES
-
 # Diccionario donde se almacenaran los articulos de la Conferencia 
 # que tendra el siguiente formato
 # { 1 : articulo1 , 2 : articulo2, 3 : articulo3, ...}
@@ -101,7 +101,7 @@ def agregarArticulo():
                     encontrado = True
                     break'''
                 
-            if chequear_topicos_articulos(topicos,topico_recibido):
+            if chequear_topicos_articulos(topicos, topico_recibido):
                 print "Este topico ya existe."
                 continue
             
@@ -131,7 +131,7 @@ def agregarArticulo():
             continue
    
     # Se agrega el articulo a la lista de articulos y se incrementa el contador     
-    articulos[num_articulos]= articulo 
+    articulos[num_articulos] = articulo 
     num_articulos = num_articulos + 1  
     
     raw_input("Articulo agregado!\nPresione cualquier tecla para volver al menu")
@@ -206,7 +206,7 @@ def agregarCP():
                     continue
                 
     # Se agrega el cp a la lista global de CP                  
-    CPs[num_cp]= miembroCP 
+    CPs[num_cp] = miembroCP 
     # Se incremente el contador de miembros de CP
     num_cp = num_cp + 1  
     
@@ -334,8 +334,8 @@ def generarAceptadosEmpatados():
         # Ordenamos a los articulos aceptables de acuerdo al promedio
         # de mayor a menor
         lista_aceptables = sorted(lista_aceptables,
-                                   key = lambda x: x.calcularPromedio(),
-                                   reverse = True)
+                                   key=lambda x: x.calcularPromedio(),
+                                   reverse=True)
         
         # Ahora obtenemos de la lista de aceptables, los n articulos que
         # mejor promedio tienen,(recordar que n es el numero maximo de articulos
@@ -407,9 +407,9 @@ def salir():
 if __name__ == "__main__":
   
     # MENU
-    comandos = {1 : agregarArticulo, 2 : agregarCP, 3 : agregarPuntuacion, 
+    comandos = {1 : agregarArticulo, 2 : agregarCP, 3 : agregarPuntuacion,
                 4 : mostrarAceptados, 5 : mostrarEmpatados, 6 : salir}
-    while(not es_fin ):
+    while(not es_fin):
         print "######  CLEI  ######\n"
         print "1.- Agregar Articulo"
         print "2.- Agregar CP"
@@ -422,7 +422,7 @@ if __name__ == "__main__":
             choice = input(">>")
         except :
             continue
-        if choice not in range(1,7):
+        if choice not in range(1, 7):
             continue
         # Se ejecuta el comando elegido
         comandos[choice]() 
