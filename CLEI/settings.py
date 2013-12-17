@@ -36,6 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'CLEI.apps.clei',
+    'CLEI.apps.inscripciones',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -51,6 +53,11 @@ ROOT_URLCONF = 'CLEI.urls'
 
 WSGI_APPLICATION = 'CLEI.wsgi.application'
 
+DIRNAME = os.path.join(os.path.dirname(__file__))
+
+TEMPLATE_DIRS = (
+                 os.path.join(DIRNAME, 'templates/'),
+                 )
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
