@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{ block.super }}
+<h1>CLEI</h1>
+	<ul id="nav">
+		<li><a href="{% url 'crear_participante' %}">Ninguno</a></li>
+	</ul>
+	<div id="content">
+{% endblock content %}

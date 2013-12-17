@@ -1,11 +1,10 @@
+from CLEI.apps.clei.forms import RegistrarEvaluacionForm, RegistrarMiembroCP, \
+    RegistrarArticuloForm
+from CLEI.apps.clei.models import Articulo, MiembroCP, Evaluacion
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http import HttpResponseRedirect
 
-from CLEI.apps.clei.forms import RegistrarMiembroCP, RegistrarArticuloForm
-from CLEI.apps.clei.forms import RegistrarEvaluacionForm
-
-from CLEI.apps.clei.models import Articulo, MiembroCP, Evaluacion
 
 def index_view(request):
     return render_to_response('index.html',

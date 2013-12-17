@@ -3,9 +3,9 @@ Created on 14/12/2013
 
 @author: HP
 '''
+from CLEI.apps.clei.models import MiembroCP, Articulo, Evaluacion
 from django import forms
 
-from CLEI.apps.clei.models import MiembroCP, Articulo, Evaluacion
 
 class RegistrarMiembroCP(forms.ModelForm):
     '''

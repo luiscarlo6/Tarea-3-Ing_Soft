@@ -1,8 +1,20 @@
+<!DOCTYPE html>
 <html>
-	<body>
-		<h1>CLEI!!!</h1>
-		{% block content %}
-			Home
-		{% endblock content %}
-	</body>
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %} Bienvenidos {% endblock %}</title>
+	<style type="text/css">
+		body{
+			padding-bottom: 40px;
+			padding-top: 60px;
+		}
+	</style>
+</head>
+<body>
+	<h1>CLEI</h1>
+	
+	<div id="content">
+	{% block content %}{% endblock %}
+	</div>
+</body>
 </html>

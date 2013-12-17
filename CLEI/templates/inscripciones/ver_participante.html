@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
-{% block content %}
-	{{ object }}
-	<p>Name: {{ object.name }}</p>
-	<p>Document Id: {{ object.id_document }}</p>
+{% block content %}	
+	<p>Name: {{ object.nombre }}</p>
+	<p>Correo: {{ object.correo }}</p>
 {% endblock %}
