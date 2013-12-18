@@ -43,7 +43,11 @@ class AsistenciaCharlasYTalleres(TipoDeInscripcion):
     beneficios = models.CharField(max_length=128)
     eventos = models.CharField(max_length=128)
     
-    
+class AsistenciaGeneral(TipoDeInscripcion):
+    NOMBRE = "Asistencia General\n"
+    precio = models.IntegerField(default=0)
+    beneficios = models.CharField(max_length=128)
+    eventos = models.CharField(max_length=128)    
     
 class TipoDeDescuento(models.Model):
     '''

@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block title %} Inscripciones {% endblock %}
 {% block content %}
-<h3>Seleccion de Paquete de Inscripcion</h3>
+<h3>Seleccion de Descuento</h3>
 {% if user.is_authenticated %}
 <p> Por favor {{ user.username }} seleccione el paquete que desea</p>
 <ul id="nav">
-  <li><a href="{% url 'crear_participante' %}">Descuento 1</a></li>
-  <li><a href="{% url 'crear_participante' %}">Descuento 2</a></li>
-  <li><a href="{% url 'crear_participante' %}">Descuento 3</a></li>
+  <li><a href="{% url 'crear_participante' %}">Ninguno</a></li>
+  <li><a href="{% url 'crear_participante' %}">Academico</a></li>
+  <li><a href="{% url 'crear_participante' %}">Compra Temprana</a></li>
 </ul>
 {% endif %}
 {% endblock %}}

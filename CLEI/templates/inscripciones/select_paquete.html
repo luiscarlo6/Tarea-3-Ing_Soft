@@ -5,9 +5,10 @@
 {% if user.is_authenticated %}
 <p> Por favor {{ user.username }} seleccione el paquete que desea</p>
 <ul id="nav">
-  <li><a href="{% url 'vista_seleccion_descuento' %}">Paquete 1</a></li>
-  <li><a href="{% url 'vista_seleccion_descuento' %}">Paquete 2</a></li>
-  <li><a href="{% url 'vista_seleccion_descuento' %}">Paquete 3</a></li>
+  <li><a href="{% url 'vista_paquete_general' %}">Asistencia General al Evento</a></li>
+  <li><a href="{% url 'vista_exclusiva_charlas' %}">Asistencia Exclusiva a Charlas</a></li>
+  <li><a href="{% url 'vista_exclusiva_talleres' %}">Asistencia Exclusiva a Talleres</a></li>
+  <li><a href="{% url 'vista_exclusiva_talleres_charlas' %}">Asistencia Exclusiva a Charlas y Talleres</a></li>
 </ul>
 {% endif %}
 {% endblock %}}

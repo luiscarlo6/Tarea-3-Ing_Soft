@@ -9,7 +9,7 @@ from django.views.generic.detail import DetailView
 
 def index_view(request):
     return render_to_response('inscripciones/index.html',
-                              context_instance = RequestContext(request))
+                            context_instance = RequestContext(request))
 
 def select_paquete_view(request):
     return render_to_response('inscripciones/select_paquete.html',
@@ -18,6 +18,23 @@ def select_paquete_view(request):
 def select_descuento_view(request):
     return render_to_response('inscripciones/select_descuento.html',
                               context_instance = RequestContext(request))
+    
+def paquete_general_view(request):
+    return render_to_response('inscripciones/paquete_general.html',
+                              context_instance = RequestContext(request))
+
+def exclusiva_charlas_view(request):
+    return render_to_response('inscripciones/exclusiva_charlas.html',
+                              context_instance = RequestContext(request))
+
+def exclusiva_talleres_view(request):
+    return render_to_response('inscripciones/exclusiva_talleres.html',
+                              context_instance = RequestContext(request))
+
+def exclusiva_talleres_charlas_view(request):
+    return render_to_response('inscripciones/exclusiva_talleres_charlas.html',
+                              context_instance = RequestContext(request))
+    
 class CreateParticipanteView(CreateView):
     model = Participante
     form_class = ParticipanteForm
