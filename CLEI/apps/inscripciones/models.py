@@ -22,6 +22,10 @@ class Participante(Persona):
     
 class TipoDeInscripcion(models.Model):
     
+    
+    def __init__(self, *args, **kwargs):
+        models.Model.__init__(self, *args, **kwargs)
+    
     def __unicode__(self):
         return ""
     
@@ -44,11 +48,20 @@ class AsistenciaCharlasYTalleres(TipoDeInscripcion):
     eventos = models.CharField(max_length=128)
     
 class AsistenciaGeneral(TipoDeInscripcion):
+
+    def __init__(self):
+        TipoDeInscripcion.__init__(self)
+        self.precio = 250
+        self.beneficios = 'beneficios'
+        self.eventos = 'eventos'    
+
     NOMBRE = "Asistencia General\n"
     precio = models.IntegerField(default=0)
     beneficios = models.CharField(max_length=128)
     eventos = models.CharField(max_length=128)    
     
+    
+        
 class TipoDeDescuento(models.Model):
     '''
     classdocs

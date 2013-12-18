@@ -3,9 +3,9 @@
 {% block content %}
 <h1>Inscripciones</h1>
 {% if user.is_authenticated %}
-<p> Bienvenido {{ user.username }}</p>
+<h2> Bienvenido {{ user.username }}</p>
 <ul id="nav">
   <li><a href="{% url 'vista_seleccion_paquete' %}">Inscribir Participante</a></li>
 </ul>
-{% endif %}
+{% endif %} 
 {% endblock %}}
