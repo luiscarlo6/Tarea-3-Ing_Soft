@@ -1,12 +1,11 @@
 {% extends "base.html" %}
-{% block title %} Login {% endblock %}
+{% block title %} Inscripciones {% endblock %}
 {% block content %}
-	<br>
-	<h3> Inicio </h3>
-	{% if user.is_authenticated %}
-		<p> Bienvenido {{ user.username }}</p>
-		<ul id="nav">
-		<li><a href="{% url 'crear_participante' %}">Inscribir Participante</a></li>
-		</ul>
-	{% endif %}
+<h3>Inscripciones</h3>
+{% if user.is_authenticated %}
+<p> Bienvenido {{ user.username }}</p>
+<ul id="nav">
+  <li><a href="{% url 'vista_seleccion_paquete' %}">Inscribir Participante</a></li>
+</ul>
+{% endif %}
 {% endblock %}}
