@@ -120,5 +120,5 @@ class Inscripcion(models.Model):
     monto_cancelado = models.IntegerField(default=0)
     
     def __unicode__(self):
-        insc = "%s %s %s" % (self.Persona.__unicode__(), self.fecha_inscripcion, self.tipo_de_inscripcion)
+        insc = "%s %s %s" % (self.persona.__unicode__(), self.fecha_inscripcion, self.tipo_de_inscripcion)
         return insc
