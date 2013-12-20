@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}	
+<h1> Inscrito Satisfactoriamente</h1>
+<p>Participante: {{ object.persona }}</p>
+<p>Correo: {{ object.persona.correo }}</p>
+<p>Pagado: {{ object.pago_realizado }}</p>
+<a href="/inscripcion"> Regresar </a>
+{% endblock %}

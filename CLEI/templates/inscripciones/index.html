@@ -5,7 +5,8 @@
 {% if user.is_authenticated %}
 <h2> Bienvenido {{ user.username }}</p>
 <ul id="nav">
-  <li><a href="{% url 'vista_seleccion_paquete' %}">Inscribir Participante</a></li>
+  <li><a href="{% url 'crear_participante' %}">Inscribir Participante</a></li>
+  <li><a href="{% url 'vista_principal' %}">Lista de Participantes</a></li>
 </ul>
 {% endif %} 
 {% endblock %}}

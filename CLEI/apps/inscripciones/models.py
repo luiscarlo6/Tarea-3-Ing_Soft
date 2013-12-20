@@ -9,16 +9,17 @@ from django.db import models
 
 
 class Participante(Persona):
+
     correo = models.EmailField()
     direcionPostal = models.CharField(max_length=64)
     url = models.CharField(max_length=64)
     numeroTelefono = models.CharField(max_length=64)
+    fecha = models.DateTimeField(default = datetime.now())  
     
     def __unicode__(self):
         cadena = "%s %s" % (self.nombre, self.apellido)
-        cadena += " %s %s" % (self.correo, self.numeroTelefono)
+#         cadena += " %s %s" % (self.correo, self.numeroTelefono)
         return cadena
-    
     
 # class TipoDeInscripcion(models.Model):
 #     
